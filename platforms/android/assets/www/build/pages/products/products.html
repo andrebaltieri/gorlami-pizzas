@@ -5,7 +5,7 @@
     </button>
     <ion-title>Produtos</ion-title>
     <ion-buttons end>
-      <button>
+      <button (click)="goToCart()">
         <ion-badge danger>{{ cartItems }}</ion-badge>
         <ion-icon name="cart"></ion-icon>
       </button>

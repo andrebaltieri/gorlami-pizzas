@@ -5,7 +5,7 @@
     </button>
     <ion-title>Meu Pedido</ion-title>
     <ion-buttons end>
-      <button>
+      <button (click)="clear()">
         <ion-icon name="trash"></ion-icon>
       </button>
     </ion-buttons>
@@ -29,8 +29,8 @@
   <ion-toolbar>
     <p>&nbsp;&nbsp;Total: <strong>R$ {{ total }}</strong></p>
     <ion-buttons end>
-      <button royal>
-        Finalizar Pedido <ion-icon name="checkmark-circle"></ion-icon>
+      <button royal (click)="goToCheckout()">
+        Ir para Checkout <ion-icon name="arrow-dropright-circle"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>

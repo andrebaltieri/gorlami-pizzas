@@ -12,6 +12,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
 var ionic_native_1 = require('ionic-native');
+var ionic_native_2 = require('ionic-native');
 var firebase = require('firebase');
 var cart_1 = require('./services/cart');
 var user_1 = require('./models/user');
@@ -45,6 +46,30 @@ var MyApp = (function () {
             messagingSenderId: "447537226425"
         };
         firebase.initializeApp(config);
+        var push = ionic_native_1.Push.init({
+            android: {
+                senderID: "447537226425"
+            },
+            ios: {},
+            windows: {}
+        });
+        // Só funciona no Device
+        // alert(push.error);
+        // push.on('registration', (data) => {
+        //   alert(data.registrationId);
+        //   this.registrationId = data.registrationId;
+        // });
+        // push.on('notification', (data) => {
+        //   alert(data.message);
+        //   alert(data.title);
+        //   alert(data.count);
+        //   alert(data.sound);
+        //   alert(data.image);
+        //   alert(data.additionalData);
+        // });    
+        // push.on('error', (e) => {
+        //   alert(e.message);
+        // });
         firebase.auth().onAuthStateChanged(function (x) {
             if (x) {
                 var usr = new user_1.User(x.displayName, x.email, x.photoURL);
@@ -59,7 +84,7 @@ var MyApp = (function () {
     }
     MyApp.prototype.initializeApp = function () {
         this.platform.ready().then(function () {
-            ionic_native_1.StatusBar.styleDefault();
+            ionic_native_2.StatusBar.styleDefault();
         });
     };
     MyApp.prototype.openPage = function (page) {
@@ -169,7 +194,6 @@ var AddressPage = (function () {
         var _this = this;
         var user = JSON.parse(localStorage.getItem('user'));
         this.data.getAddresses(user.email).subscribe(function (item) {
-            console.log(item);
             _this.addresses.push(item);
         });
     };

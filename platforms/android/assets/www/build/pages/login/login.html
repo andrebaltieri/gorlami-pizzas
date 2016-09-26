@@ -11,13 +11,13 @@
 
   <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
     <ion-item>
-      <ion-label stacked>Email</ion-label>
-      <ion-input formControlName="email" type="email" placeholder="E-mail"></ion-input>
+      <ion-label floating>Email</ion-label>
+      <ion-input formControlName="email" type="email"></ion-input>
     </ion-item>
 
     <ion-item>
-      <ion-label stacked>Senha</ion-label>
-      <ion-input formControlName="password" type="password" placeholder="Senha"></ion-input>
+      <ion-label floating>Senha</ion-label>
+      <ion-input formControlName="password" type="password"></ion-input>
     </ion-item>
 
     <button block type="submit">Autenticar</button>

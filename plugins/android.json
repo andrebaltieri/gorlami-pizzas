@@ -24,6 +24,10 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.miapizza288672"
+        },
+        "phonegap-plugin-push": {
+            "SENDER_ID": "447537226425",
+            "PACKAGE_NAME": "com.ionicframework.miapizza288672"
         }
     },
     "dependent_plugins": {}

@@ -30,6 +30,12 @@
     "run-sequence": "1.1.5"
   },
   "cordovaPlugins": [
+    {
+      "variables": {
+        "SENDER_ID": "447537226425"
+      },
+      "locator": "phonegap-plugin-push"
+    },
     "cordova-plugin-device",
     "cordova-plugin-console",
     "cordova-plugin-whitelist",

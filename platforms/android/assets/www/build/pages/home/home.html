@@ -5,7 +5,7 @@
     </button>
     <ion-title>Pizzaria Gorlami</ion-title>
     <ion-buttons end>
-      <button>
+      <button (click)="goToCart()">
         <ion-badge danger>{{ cartItems }}</ion-badge>
         <ion-icon name="cart"></ion-icon>
       </button>
@@ -13,6 +13,6 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content padding class="home">
   <img src="http://placehold.it/300x100">
 </ion-content>

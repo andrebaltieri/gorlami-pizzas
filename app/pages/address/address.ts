@@ -34,7 +34,6 @@ export class AddressPage {
   getAll() {
     var user: User = JSON.parse(localStorage.getItem('user'));    
     this.data.getAddresses(user.email).subscribe(item => {
-      console.log(item);
       this.addresses.push(item);
     });
   }

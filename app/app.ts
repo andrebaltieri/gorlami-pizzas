@@ -1,5 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ionicBootstrap, Platform, Nav } from 'ionic-angular';
+import { Push } from 'ionic-native';
 import { StatusBar } from 'ionic-native';
 import * as firebase from 'firebase';
 
@@ -47,6 +48,35 @@ class MyApp {
       messagingSenderId: "447537226425"
     };
     firebase.initializeApp(config);
+
+    let push: any = Push.init({
+      android: {
+        senderID: "447537226425"
+      },
+      ios: {},
+      windows: {}
+    });
+
+    // Só funciona no Device
+    // alert(push.error);
+
+    // push.on('registration', (data) => {
+    //   alert(data.registrationId);
+    //   this.registrationId = data.registrationId;
+    // });
+
+    // push.on('notification', (data) => {
+    //   alert(data.message);
+    //   alert(data.title);
+    //   alert(data.count);
+    //   alert(data.sound);
+    //   alert(data.image);
+    //   alert(data.additionalData);
+    // });    
+
+    // push.on('error', (e) => {
+    //   alert(e.message);
+    // });
 
     firebase.auth().onAuthStateChanged((x) => {
       if (x) {
