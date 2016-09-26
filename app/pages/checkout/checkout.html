@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-navbar primary>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Checkout</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      Resumo do Pedido
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let item of items; let index = index">
+        <h2>{{ item.quantity }}x {{ item.product.title }}</h2>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Total
+    </ion-card-header>
+    <ion-card-content>
+      <h1>R$ {{ total }}</h1>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Endereço de Entrega
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list radio-group>
+        <ion-item>
+          <ion-label>Avenida dos Marins, 1200</ion-label>
+          <ion-radio checked="true" value="0"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Rua Corumbataí, 85</ion-label>
+          <ion-radio checked="false" value="1"></ion-radio>
+        </ion-item>
+      </ion-list>
+      <button block type="button" (click)="goToAddress()">Adicionar Endereço</button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      Forma de Pagamento
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list radio-group>
+        <ion-item>
+          <ion-label>Cartão de Crédito (Visa, Master)</ion-label>
+          <ion-radio checked="true" value="credit-card"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>Dinheiro</ion-label>
+          <ion-radio checked="false" value="money"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons end>
+      <button royal>
+        Realizar Pedido <ion-icon name="checkmark-circle"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
