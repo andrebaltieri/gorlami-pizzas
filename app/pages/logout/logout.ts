@@ -15,6 +15,7 @@ export class LogoutPage {
 
   logOut() {
     this.authData.logoutUser().then(() => {
+      localStorage.removeItem('user');
       this.navCtrl.setRoot(LoginPage);
     });
   }

@@ -5,6 +5,7 @@ import { AuthProvider } from '../../providers/auth/auth';
 import { SignupPage } from '../signup/signup';
 import { HomePage } from '../home/home';
 import { ResetPasswordPage } from '../reset-password/reset-password';
+import { User } from '../../models/user';
 
 @Component({
   templateUrl: 'build/pages/login/login.html',
@@ -26,6 +27,8 @@ export class LoginPage {
       console.log(this.loginForm.value);
     } else {
       this.authData.loginUser(this.loginForm.value.email, this.loginForm.value.password).then(authData => {
+        var usr: User = new User(authData.displayName, authData.email, authData.photoURL);
+        localStorage.setItem('user', JSON.stringify(usr));
         this.nav.setRoot(HomePage);
       }, error => {
         let alert = this.alertCtrl.create({

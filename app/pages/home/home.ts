@@ -1,19 +1,16 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { CartItem }from '../../models/CartItem';
+import { CartService }from '../../services/cart';
 
-/*
-  Generated class for the HomePage page.
-
-  See http://ionicframework.com/docs/v2/components/#navigation for more info on
-  Ionic pages and navigation.
-*/
 @Component({
-  templateUrl: 'build/pages/home/home.html',
+  templateUrl: 'build/pages/home/home.html'
 })
 export class HomePage {
+  public cartItems: number = 0;
 
-  constructor(private navCtrl: NavController) {
-
+  constructor(private navCtrl: NavController, private cart: CartService) {
+    this.cartItems = cart.getItemsCount();
   }
 
 }

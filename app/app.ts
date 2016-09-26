@@ -3,9 +3,14 @@ import { ionicBootstrap, Platform, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 import * as firebase from 'firebase';
 
+import { CartService }from './services/cart';
+
+import { User } from './models/user';
+
 import { HomePage } from './pages/home/home';
 import { ProductsPage } from './pages/products/products';
 import { ConfigurationPage } from './pages/configuration/configuration';
+import { CartPage } from './pages/cart/cart';
 import { HistoryPage } from './pages/history/history';
 import { LogoutPage } from './pages/logout/logout';
 import { LoginPage } from './pages/login/login';
@@ -16,33 +21,38 @@ import { LoginPage } from './pages/login/login';
 class MyApp {
   @ViewChild(Nav) nav: Nav;
 
+  public user: User = new User('', '', '');
+
   rootPage: any = HomePage;
 
-  pages: Array<{ title: string, component: any }>;
+  pages: Array<{ title: string, icon: string, component: any }>;
 
   constructor(public platform: Platform) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Pizzas', component: ProductsPage },
-      { title: 'Configurações', component: ConfigurationPage },
-      { title: 'Histórico', component: HistoryPage },
-      { title: 'Sair', component: LogoutPage }
+      { title: 'Home', icon: 'home', component: HomePage },
+      { title: 'Pizzas', icon: 'pizza', component: ProductsPage },
+      { title: 'Meu Pedido', icon: 'cart', component: CartPage },
+      { title: 'Configurações', icon: 'cog', component: ConfigurationPage },
+      { title: 'Histórico', icon: 'list-box', component: HistoryPage },
+      { title: 'Sair', icon: 'exit', component: LogoutPage }
     ];
 
     var config = {
-      apiKey: "AIzaSyCXZj6nE3QwzdbKi6Y1NgTKYjqCrNpPlkA",
-      authDomain: "mia-pizza.firebaseapp.com",
-      databaseURL: "https://mia-pizza.firebaseio.com",
-      storageBucket: "mia-pizza.appspot.com",
-      messagingSenderId: "757275110490"
+      apiKey: "AIzaSyA68m-cW3depnrI5anzpdcDgLL-V3uLsF8",
+      authDomain: "pizzaria-gorlami.firebaseapp.com",
+      databaseURL: "https://pizzaria-gorlami.firebaseio.com",
+      storageBucket: "",
+      messagingSenderId: "447537226425"
     };
     firebase.initializeApp(config);
 
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+    firebase.auth().onAuthStateChanged((x) => {
+      if (x) {
+        var usr: User = new User(x.displayName, x.email, x.photoURL);
+        localStorage.setItem('user', JSON.stringify(usr));
+        this.user = usr;
         this.rootPage = HomePage;
       } else {
         this.rootPage = LoginPage;
@@ -53,17 +63,13 @@ class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
     });
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
   }
 }
 
-ionicBootstrap(MyApp);
+ionicBootstrap(MyApp, [CartService]);

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar primary>
+    <ion-title>
+      Login
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="login">
+  <img src="http://placehold.it/300x100">
+
+  <form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+    <ion-item>
+      <ion-label stacked>Email</ion-label>
+      <ion-input formControlName="email" type="email" placeholder="E-mail"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label stacked>Senha</ion-label>
+      <ion-input formControlName="password" type="password" placeholder="Senha"></ion-input>
+    </ion-item>
+
+    <button block type="submit">Autenticar</button>
+  </form>
+
+  <button block clear (click)="goToSignup()">Criar uma conta</button>
+  <button block clear (click)="goToResetPassword()">Esqueci minha Senha</button>
+
+</ion-content>
