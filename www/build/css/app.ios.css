@@ -8725,5 +8725,45 @@ body {
   font-size: 1.4rem;
   background-color: #fff; }
 
-.home {
-  background-color: #387ef5; }
+ion-content {
+  background-color: #e1e1e1; }
+
+.text-center {
+  text-align: center; }
+
+.card-background-page .profile-image {
+  text-align: center;
+  width: 100%;
+  top: 110px;
+  position: absolute; }
+
+.card-background-page .profile-image img {
+  width: 128px;
+  height: 128px;
+  border-radius: 128px;
+  border: 3px solid #e1e1e1;
+  margin-left: auto;
+  margin-right: auto; }
+
+.card-background-page .menu-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #fff; }
+
+.card-background-page ion-card {
+  position: relative;
+  text-align: center; }
+
+.card-background-page .card-title {
+  padding-top: 70px;
+  font-size: 1.8em;
+  width: 100%;
+  font-weight: 100;
+  color: #333; }
+
+.card-background-page .card-subtitle {
+  font-size: 1.0em;
+  font-weight: 100;
+  width: 100%;
+  color: #333; }

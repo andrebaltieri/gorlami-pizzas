@@ -1,18 +1,41 @@
-<ion-header>
-  <ion-navbar primary>
-    <button menuToggle>
+<ion-content class="card-background-page">
+  <ion-card>
+    <button class="menu-button" light clear menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Pizzaria Gorlami</ion-title>
-    <ion-buttons end>
-      <button (click)="goToCart()">
-        <ion-badge danger>{{ cartItems }}</ion-badge>
-        <ion-icon name="cart"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
-</ion-header>
+    <div class="profile-image">
+      <p class="text-center">
+        <img src="http://lorempixel.com/128/128/people/" alt="">
+      </p>
+    </div>
+    <img src="http://lorempixel.com/400/200/food/" />
+    <div class="card-title">André Baltieri</div>
+    <div class="card-subtitle">andrebaltieri@gmail.com</div>
+    <br>
+  </ion-card>
 
-<ion-content padding class="home">
-  <img src="http://placehold.it/300x100">
+  <ion-card>
+    <ion-card-header>
+      Nossas Pizzas
+    </ion-card-header>
+
+    <ion-list>
+      <ion-item>
+        <ion-thumbnail item-left>
+          <img src="http://lorempixel.com/64/64/food/">
+        </ion-thumbnail>
+        <h2>Pizza de Frango com Catupiry</h2>
+        <p>Delicioso frango temperado, com catupiry original</p>
+        <button clear item-right secondary>R$ 23,50</button>
+      </ion-item>
+      <ion-item>
+        <ion-thumbnail item-left>
+          <img src="http://lorempixel.com/64/64/food/">
+        </ion-thumbnail>
+        <h2>Pizza de Palmito</h2>
+        <p>Delicioso palmito selecionado, com queijo e ervas finas</p>
+        <button clear item-right secondary>R$ 23,50</button>
+      </ion-item>
+    </ion-list>
+  </ion-card>
 </ion-content>
