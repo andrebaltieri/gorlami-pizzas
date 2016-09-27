@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, ControlGroup } from '@angular/common';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { CartPage } from '../../pages/cart/cart';
+import { CreateAddressPage } from '../../pages/create-address/create-address';
 import { CartService } from '../../services/cart';
 import { DataProvider } from '../../providers/data/data';
 import { User } from '../../models/user';
@@ -18,7 +19,7 @@ export class AddressPage {
   public addresses: Address[] = [];
 
 
-  constructor(private navCtrl: NavController, private cart: CartService, public data: DataProvider, public alertCtrl: AlertController, public formBuilder: FormBuilder) {
+  constructor(private navCtrl: NavController, private cart: CartService, public data: DataProvider, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public formBuilder: FormBuilder) {
     this.cartItems = cart.getItemsCount();
     this.addressForm = formBuilder.group({
       zipCode: ['', Validators.required],
@@ -32,32 +33,23 @@ export class AddressPage {
   }
 
   getAll() {
-    var user: User = JSON.parse(localStorage.getItem('user'));    
+    var user: User = JSON.parse(localStorage.getItem('user'));
     this.data.getAddresses(user.email).subscribe(item => {
       this.addresses.push(item);
     });
-  }
 
-  onSubmit(): void {
-    var user: User = JSON.parse(localStorage.getItem('user'));
-    this.data.createAddress(new Address(
-      user.email,
-      this.addressForm.value.zipCode,
-      this.addressForm.value.street,
-      this.addressForm.value.number,
-      this.addressForm.value.district,
-      this.addressForm.value.city,
-      this.addressForm.value.state));
-
-    let prompt = this.alertCtrl.create({
-      title: 'Endereço Cadastrado',
-      message: "Seu endereço foi cadastrado com sucesso!",
+    let loading = this.loadingCtrl.create({
+      dismissOnPageChange: true,
     });
-    prompt.present();
+    loading.present();
   }
 
   goToCart() {
     this.navCtrl.setRoot(CartPage);
+  }
+
+  addAddress() {
+    this.navCtrl.setRoot(CreateAddressPage);
   }
 
 }

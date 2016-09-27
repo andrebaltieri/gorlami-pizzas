@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { Product } from '../../models/product'
 import { DataProvider } from '../../providers/data/data';
 import { CartItem }from '../../models/CartItem';
@@ -16,7 +16,7 @@ export class ProductsPage {
   public cartItems: number = 0;
 
 
-  constructor(private navCtrl: NavController, public data: DataProvider, private cart: CartService) {
+  constructor(private navCtrl: NavController, public loadingCtrl: LoadingController, public data: DataProvider, private cart: CartService) {
     this.getAll();
     this.cartItems = cart.getItemsCount();
   }
@@ -25,6 +25,11 @@ export class ProductsPage {
     this.data.getProducts().subscribe(item => {
       this.products.push(item);
     });
+
+    let loading = this.loadingCtrl.create({
+      dismissOnPageChange: true,
+    });
+    loading.present();
   }
 
   addProduct(product: Product) {

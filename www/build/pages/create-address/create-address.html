@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-navbar primary>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Adicionar Endereço</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="addressForm" (submit)="onSubmit()" novalidate>
+    <ion-item>
+      <ion-label floating>CEP</ion-label>
+      <ion-input formControlName="zipCode" type="number"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Logradouro</ion-label>
+      <ion-input formControlName="street" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Número</ion-label>
+      <ion-input formControlName="number" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Bairro</ion-label>
+      <ion-input formControlName="district" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Cidade</ion-label>
+      <ion-input formControlName="city" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Estado</ion-label>
+      <ion-input formControlName="state" type="text"></ion-input>
+    </ion-item>
+
+    <button block type="submit">Salvar</button>
+  </form>
+</ion-content>

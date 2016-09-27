@@ -3,13 +3,7 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Endereço</ion-title>
-    <ion-buttons end>
-      <button (click)="goToCart()">
-        <ion-badge danger>{{ cartItems }}</ion-badge>
-        <ion-icon name="cart"></ion-icon>
-      </button>
-    </ion-buttons>
+    <ion-title>Endereço</ion-title>    
   </ion-navbar>
 </ion-header>
 
@@ -26,38 +20,5 @@
     </ion-list>
   </ion-card>
 
-
-  <form [formGroup]="addressForm" (submit)="onSubmit()" novalidate>
-    <ion-item>
-      <ion-label floating>CEP</ion-label>
-      <ion-input formControlName="zipCode" type="number"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Logradouro</ion-label>
-      <ion-input formControlName="street" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Número</ion-label>
-      <ion-input formControlName="number" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Bairro</ion-label>
-      <ion-input formControlName="district" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Cidade</ion-label>
-      <ion-input formControlName="city" type="text"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label floating>Estado</ion-label>
-      <ion-input formControlName="state" type="text"></ion-input>
-    </ion-item>
-
-    <button block type="submit">Salvar</button>
-  </form>
+  <button fab fab-bottom fab-right danger (click)="addAddress()"><ion-icon name="add"></ion-icon></button>
 </ion-content>
