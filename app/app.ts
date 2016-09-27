@@ -4,8 +4,6 @@ import { Push } from 'ionic-native';
 import { StatusBar } from 'ionic-native';
 import * as firebase from 'firebase';
 
-import { CartService }from './services/cart';
-
 import { User } from './models/user';
 
 import { HomePage } from './pages/home/home';
@@ -23,13 +21,11 @@ class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   public user: User = new User('', '', '');
-  public cartItems: number = 0;
 
   rootPage: any = HomePage;
-
   pages: Array<{ title: string, icon: string, component: any }>;
 
-  constructor(public platform: Platform,  private cart: CartService) {
+  constructor(public platform: Platform) {
     this.initializeApp();
 
     this.pages = [
@@ -89,8 +85,6 @@ class MyApp {
         this.rootPage = LoginPage;
       }
     });
-
-    this.cartItems = cart.getItemsCount();
   }
 
   initializeApp() {
@@ -103,9 +97,6 @@ class MyApp {
     this.nav.setRoot(page.component);
   }
 
-  goToCart() {
-    this.nav.setRoot(CartPage);
-  }
 }
 
-ionicBootstrap(MyApp, [CartService]);
+ionicBootstrap(MyApp, []);

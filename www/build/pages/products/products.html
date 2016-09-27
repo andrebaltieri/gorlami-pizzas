@@ -11,12 +11,12 @@
   <ion-list>
     <ion-item-sliding *ngFor="let product of products">
       <ion-item>
-        <ion-avatar item-left>
-          <img src="http://placehold.it/128x128">
-        </ion-avatar>
+        <ion-thumbnail item-left>
+          <img src="http://lorempixel.com/64/64/food/">
+        </ion-thumbnail>
         <h2>{{ product.title }}</h2>
         <p>{{ product.description }}</p>
-        <p><strong>R$ {{ product.price }}</strong></p>
+        <p item-right class="text-green"><strong>R$ {{ product.price }}</strong></p>
       </ion-item>
       <ion-item-options side="right">
         <button primary (click)="addProduct(product)">
@@ -25,4 +25,6 @@
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>
+
+  <button fab fab-bottom fab-right danger (click)="goToCart()"><ion-icon name="cart"></ion-icon>{{ cartItems }}</button>
 </ion-content>

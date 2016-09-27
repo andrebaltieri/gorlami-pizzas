@@ -5,6 +5,7 @@ import {Observable} from 'rxjs/Observable';
 import * as firebase from 'firebase';
 import { Product } from '../../models/product';
 import { Address } from '../../models/address';
+import { User } from '../../models/user';
 
 @Injectable()
 export class DataProvider {
@@ -21,7 +22,7 @@ export class DataProvider {
       let listener = this.products.on('child_added', snapshot => {
         let data = snapshot.val();
         observer.next(new Product(
-          data.title, 
+          data.title,
           data.description,
           data.price,
           data.inStock
@@ -40,11 +41,11 @@ export class DataProvider {
         let data = snapshot.val();
         observer.next(new Address(
           data.email,
-          data.zipCode, 
-          data.street, 
-          data.number, 
-          data.district, 
-          data.city, 
+          data.zipCode,
+          data.street,
+          data.number,
+          data.district,
+          data.city,
           data.state
         ));
       }, observer.error);
@@ -57,5 +58,14 @@ export class DataProvider {
 
   createAddress(address: Address): void {
     this.addresses.push(address);
+  }
+
+  getUser(): User {
+    var data = localStorage.getItem('user');
+    if (!data) {
+      return new User('', '', '');
+    } else {
+      return new User(data.name, data.email, data.image);
+    }
   }
 }

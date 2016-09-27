@@ -14,28 +14,25 @@ var ionic_angular_1 = require('ionic-angular');
 var ionic_native_1 = require('ionic-native');
 var ionic_native_2 = require('ionic-native');
 var firebase = require('firebase');
-var cart_1 = require('./services/cart');
 var user_1 = require('./models/user');
 var home_1 = require('./pages/home/home');
 var products_1 = require('./pages/products/products');
 var configuration_1 = require('./pages/configuration/configuration');
-var cart_2 = require('./pages/cart/cart');
+var cart_1 = require('./pages/cart/cart');
 var history_1 = require('./pages/history/history');
 var logout_1 = require('./pages/logout/logout');
 var login_1 = require('./pages/login/login');
 var MyApp = (function () {
-    function MyApp(platform, cart) {
+    function MyApp(platform) {
         var _this = this;
         this.platform = platform;
-        this.cart = cart;
         this.user = new user_1.User('', '', '');
-        this.cartItems = 0;
         this.rootPage = home_1.HomePage;
         this.initializeApp();
         this.pages = [
             { title: 'Home', icon: 'home', component: home_1.HomePage },
             { title: 'Pizzas', icon: 'pizza', component: products_1.ProductsPage },
-            { title: 'Meu Pedido', icon: 'cart', component: cart_2.CartPage },
+            { title: 'Meu Pedido', icon: 'cart', component: cart_1.CartPage },
             { title: 'Configurações', icon: 'cog', component: configuration_1.ConfigurationPage },
             { title: 'Histórico', icon: 'list-box', component: history_1.HistoryPage },
             { title: 'Sair', icon: 'exit', component: logout_1.LogoutPage }
@@ -83,7 +80,6 @@ var MyApp = (function () {
                 _this.rootPage = login_1.LoginPage;
             }
         });
-        this.cartItems = cart.getItemsCount();
     }
     MyApp.prototype.initializeApp = function () {
         this.platform.ready().then(function () {
@@ -93,9 +89,6 @@ var MyApp = (function () {
     MyApp.prototype.openPage = function (page) {
         this.nav.setRoot(page.component);
     };
-    MyApp.prototype.goToCart = function () {
-        this.nav.setRoot(cart_2.CartPage);
-    };
     __decorate([
         core_1.ViewChild(ionic_angular_1.Nav), 
         __metadata('design:type', ionic_angular_1.Nav)
@@ -104,12 +97,12 @@ var MyApp = (function () {
         core_1.Component({
             templateUrl: 'build/app.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.Platform, cart_1.CartService])
+        __metadata('design:paramtypes', [ionic_angular_1.Platform])
     ], MyApp);
     return MyApp;
 }());
-ionic_angular_1.ionicBootstrap(MyApp, [cart_1.CartService]);
-},{"./models/user":5,"./pages/cart/cart":7,"./pages/configuration/configuration":9,"./pages/history/history":11,"./pages/home/home":12,"./pages/login/login":13,"./pages/logout/logout":14,"./pages/products/products":15,"./services/cart":20,"@angular/core":168,"firebase":388,"ionic-angular":487,"ionic-native":514}],2:[function(require,module,exports){
+ionic_angular_1.ionicBootstrap(MyApp, []);
+},{"./models/user":5,"./pages/cart/cart":7,"./pages/configuration/configuration":9,"./pages/history/history":11,"./pages/home/home":12,"./pages/login/login":13,"./pages/logout/logout":14,"./pages/products/products":15,"@angular/core":168,"firebase":388,"ionic-angular":487,"ionic-native":514}],2:[function(require,module,exports){
 "use strict";
 var CartItem = (function () {
     function CartItem(product, quantity) {
@@ -487,28 +480,55 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
+var data_1 = require('../../providers/data/data');
 var cart_1 = require('../../services/cart');
 var cart_2 = require('../../pages/cart/cart');
+var products_1 = require('../../pages/products/products');
+var user_1 = require('../../models/user');
 var HomePage = (function () {
-    function HomePage(navCtrl, cart) {
+    function HomePage(navCtrl, loadingCtrl, data, cart) {
         this.navCtrl = navCtrl;
+        this.loadingCtrl = loadingCtrl;
+        this.data = data;
         this.cart = cart;
+        this.products = [];
+        this.user = new user_1.User('', '', '');
         this.cartItems = 0;
         this.cartItems = cart.getItemsCount();
     }
+    HomePage.prototype.ngOnInit = function () {
+        this.getUser();
+        this.getProducts();
+    };
+    HomePage.prototype.getProducts = function () {
+        var _this = this;
+        var loading = this.loadingCtrl.create();
+        loading.present();
+        this.data.getProducts().subscribe(function (item) {
+            _this.products.push(item);
+            loading.dismiss();
+        });
+    };
+    HomePage.prototype.getUser = function () {
+        this.user = this.data.getUser();
+    };
+    HomePage.prototype.goToProducts = function () {
+        this.navCtrl.setRoot(products_1.ProductsPage);
+    };
     HomePage.prototype.goToCart = function () {
         this.navCtrl.setRoot(cart_2.CartPage);
     };
     HomePage = __decorate([
         core_1.Component({
-            templateUrl: 'build/pages/home/home.html'
+            templateUrl: 'build/pages/home/home.html',
+            providers: [cart_1.CartService, data_1.DataProvider]
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.NavController, cart_1.CartService])
+        __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.LoadingController, data_1.DataProvider, cart_1.CartService])
     ], HomePage);
     return HomePage;
 }());
 exports.HomePage = HomePage;
-},{"../../pages/cart/cart":7,"../../services/cart":20,"@angular/core":168,"ionic-angular":487}],13:[function(require,module,exports){
+},{"../../models/user":5,"../../pages/cart/cart":7,"../../pages/products/products":15,"../../providers/data/data":19,"../../services/cart":20,"@angular/core":168,"ionic-angular":487}],13:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -650,14 +670,13 @@ var ProductsPage = (function () {
         this.cartItems = cart.getItemsCount();
     }
     ProductsPage.prototype.getAll = function () {
+        // let loading = this.loadingCtrl.create();
+        // loading.present();
         var _this = this;
         this.data.getProducts().subscribe(function (item) {
             _this.products.push(item);
+            // loading.dismiss();
         });
-        var loading = this.loadingCtrl.create({
-            dismissOnPageChange: true,
-        });
-        loading.present();
     };
     ProductsPage.prototype.addProduct = function (product) {
         this.cart.addItem(new CartItem_1.CartItem(product, 1));
@@ -669,7 +688,7 @@ var ProductsPage = (function () {
     ProductsPage = __decorate([
         core_1.Component({
             templateUrl: 'build/pages/products/products.html',
-            providers: [data_1.DataProvider]
+            providers: [cart_1.CartService, data_1.DataProvider]
         }), 
         __metadata('design:paramtypes', [ionic_angular_1.NavController, ionic_angular_1.LoadingController, data_1.DataProvider, cart_1.CartService])
     ], ProductsPage);
@@ -877,6 +896,7 @@ var Observable_1 = require('rxjs/Observable');
 var firebase = require('firebase');
 var product_1 = require('../../models/product');
 var address_1 = require('../../models/address');
+var user_1 = require('../../models/user');
 var DataProvider = (function () {
     function DataProvider(http) {
         this.http = http;
@@ -910,6 +930,15 @@ var DataProvider = (function () {
     DataProvider.prototype.createAddress = function (address) {
         this.addresses.push(address);
     };
+    DataProvider.prototype.getUser = function () {
+        var data = localStorage.getItem('user');
+        if (!data) {
+            return new user_1.User('', '', '');
+        }
+        else {
+            return new user_1.User(data.name, data.email, data.image);
+        }
+    };
     DataProvider = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])
@@ -917,7 +946,7 @@ var DataProvider = (function () {
     return DataProvider;
 }());
 exports.DataProvider = DataProvider;
-},{"../../models/address":3,"../../models/product":4,"@angular/core":168,"@angular/http":295,"firebase":388,"rxjs/Observable":594,"rxjs/add/operator/map":600}],20:[function(require,module,exports){
+},{"../../models/address":3,"../../models/product":4,"../../models/user":5,"@angular/core":168,"@angular/http":295,"firebase":388,"rxjs/Observable":594,"rxjs/add/operator/map":600}],20:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;

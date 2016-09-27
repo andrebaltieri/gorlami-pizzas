@@ -1,13 +1,7 @@
 <ion-menu [content]="content">
-  <ion-content>
-    <p *ngIf="user.image">
-      <img src="http://placehold.it/120x120">
-    </p>
-    <p *ngIf="!user.image">
-      <img src="http://placehold.it/120x120">
-    </p>
+  <ion-content class="white-bg">
+    <img src="http://lorempixel.com/250/120/food/" class="full-width">
 
-    <p>{{ user.email }}</p>
     <ion-list no-lines>
       <ion-item menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon name="{{ p.icon }}" item-left></ion-icon> {{ p.title }}
@@ -17,4 +11,3 @@
 </ion-menu>
 
 <ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
-<button fab fab-bottom fab-right danger (click)="goToCart()"><ion-icon name="cart"></ion-icon>{{ cartItems }}</button>

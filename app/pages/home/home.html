@@ -9,33 +9,32 @@
       </p>
     </div>
     <img src="http://lorempixel.com/400/200/food/" />
-    <div class="card-title">André Baltieri</div>
-    <div class="card-subtitle">andrebaltieri@gmail.com</div>
+    <div class="card-title">Olá, {{ user.name }}</div>
+    <div class="card-subtitle">{{ user.email }}</div>
     <br>
   </ion-card>
 
   <ion-card>
     <ion-card-header>
-      Nossas Pizzas
+      Em Destaque
     </ion-card-header>
 
     <ion-list>
-      <ion-item>
+      <ion-item *ngFor="let product of products">
         <ion-thumbnail item-left>
           <img src="http://lorempixel.com/64/64/food/">
         </ion-thumbnail>
-        <h2>Pizza de Frango com Catupiry</h2>
-        <p>Delicioso frango temperado, com catupiry original</p>
-        <button clear item-right secondary>R$ 23,50</button>
+        <h2>{{ product.title }}</h2>
+        <p>{{ product.description }}</p>
+        <p item-right class="text-green"><strong>R$ {{ product.price }}</strong></p>
       </ion-item>
-      <ion-item>
-        <ion-thumbnail item-left>
-          <img src="http://lorempixel.com/64/64/food/">
-        </ion-thumbnail>
-        <h2>Pizza de Palmito</h2>
-        <p>Delicioso palmito selecionado, com queijo e ervas finas</p>
-        <button clear item-right secondary>R$ 23,50</button>
+      <ion-item class="text-center">
+        <button clear (click)="goToProducts()">Ver Todos</button>
       </ion-item>
     </ion-list>
   </ion-card>
+
+  <ion-fixed class="fixed-bottom">
+    <button fab fab-bottom fab-right danger (click)="goToCart()"><ion-icon name="cart"></ion-icon>{{ cartItems }}</button>
+  </ion-fixed>  
 </ion-content>

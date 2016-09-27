@@ -8,13 +8,12 @@ import { CartPage } from '../../pages/cart/cart';
 
 @Component({
   templateUrl: 'build/pages/products/products.html',
-  providers: [DataProvider]
+  providers: [CartService, DataProvider]
 })
 export class ProductsPage {
 
   public products: Product[] = [];
   public cartItems: number = 0;
-
 
   constructor(private navCtrl: NavController, public loadingCtrl: LoadingController, public data: DataProvider, private cart: CartService) {
     this.getAll();
@@ -22,14 +21,13 @@ export class ProductsPage {
   }
 
   getAll() {
+    // let loading = this.loadingCtrl.create();
+    // loading.present();
+
     this.data.getProducts().subscribe(item => {
       this.products.push(item);
+      // loading.dismiss();
     });
-
-    let loading = this.loadingCtrl.create({
-      dismissOnPageChange: true,
-    });
-    loading.present();
   }
 
   addProduct(product: Product) {

@@ -9,3 +9,24 @@
 @import "../pages/products/products";
 @import "../pages/reset-password/reset-password";
 @import "../pages/signup/signup";
+
+.fixed-bottom {
+right: 0;
+bottom: 0;
+}
+
+.white-bg {
+    background-color: #fff;
+}
+
+.text-center { 
+    text-align: center;
+}
+
+.text-green {
+    color: #32db64 !important;
+}
+
+.full-width {
+    width: 100%;
+}
